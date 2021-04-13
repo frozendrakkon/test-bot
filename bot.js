@@ -53,6 +53,7 @@ function sayHello() {
     reactClickMood(arrElementsAngryEmoji, arrAngryAnswers, "angry");
   }
 }
+sayHello();
 
 function sayDontUnderstand() {
   submitBtn.onclick = function () {
