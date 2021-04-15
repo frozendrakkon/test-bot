@@ -71,12 +71,14 @@ let moods = [];
 
 // * функция, которая добавляет в контейнер тег p, с необходимым содержанием
 function addTextContainerAnswers(text) {
-  const answer = document.createTextNode(text);
-  const p = document.createElement("p");
+  if (text !== undefined) {
+    const answer = document.createTextNode(text);
+    const p = document.createElement("p");
 
-  p.appendChild(answer);
-  containerAnswers.appendChild(p);
-  userText.value = "";
+    p.appendChild(answer);
+    containerAnswers.appendChild(p);
+    userText.value = "";
+  }
 }
 
 // * функция, которая отдает рандомный ответ при старте приложения
@@ -84,7 +86,7 @@ function getRandomAnswerStart(arrAnswers) {
   const answer = arrAnswers[Math.floor(Math.random() * arrAnswers.length)];
   if (containerAnswers.children.length === 0) {
     return `Привет, ${answer}`;
-  } else {
+  } else if (moods.length === 2) {
     AnswerLastMood(moods);
   }
 }
@@ -134,11 +136,11 @@ function reactStartClickMood(arrEmoji, arrAnswers, mood) {
       if (moods.length > 2) {
         moods.pop();
       }
-      console.log(moods);
       addTextContainerAnswers(getRandomAnswerStart(arrAnswers, mood));
     };
   });
 }
+
 // * без комментариев))
 function sayHello() {
   reactStartClickMood(happyEmojiElements, happyStartAnswers, "happy");
@@ -171,13 +173,6 @@ function AnswerLastMood() {
   } else if (moods[1] === "angry" && moods[0] === "sad") {
     reactClickMood(sadEmojiElements, angryAnswerOnSadMoods);
   }
-  // reactClickMood(happyEmojiElements, happyAnswerOnHappyMoods);
-  // reactClickMood(happyEmojiElements, happyAnswerOnAngryMoods);
-  // reactClickMood(happyEmojiElements, happyAnswerOnSadMoods);
-
-  // reactClickMood(angryEmojiElements, angryAnswerOnAngryMoods);
-
-  // reactClickMood(sadEmojiElements, sadAnswerOnSadMoods);
 }
 
 //* функция, которая отдает ответ, что не знает о чем я говорю, если были введен текст
